@@ -95,29 +95,50 @@ void 					can_mod( unsigned char address, unsigned char mask, unsigned char data
 
 // Driver controls CAN base address and packet offsets
 #define DC_CAN_BASE		0x500
-#define DC_DRIVE		1
-#define DC_POWER		2
-#define DC_RESET		3
-#define DC_SWITCH		5
+#define DC_DRIVE		0x01
+#define DC_POWER		0x02
+#define DC_RESET		0x03
+#define DC_SWITCH		0x05
+#define DC_CRUISE_SET   0x06    // command to set cruise control target
+#define DC_CRUISE1      0x07
+#define DC_CRUISE2      0x08
+#define DC_PID          0x09
+#define DC_DIRTY_HARRY  0x0A
+#define DC_PID_READ     0x0B 
 #define DC_BOOTLOAD		22
 
 // Driver controls switch position packet bitfield positions (lower 16 bits)
-#define SW_MODE_R		0x0001
-#define SW_MODE_N		0x0002
-#define SW_MODE_B		0x0004
-#define SW_MODE_D		0x0008
-#define SW_IGN_ACC		0x0010
-#define SW_IGN_ON		0x0020
-#define SW_IGN_START	0x0040
-#define SW_BRAKE		0x0080
-#define SW_FUEL			0x0100
-#define SW_SPARE1		0x0200
-#define SW_SPARE2		0x0400
-#define SW_SPARE3		0x0800
-#define SW_ACCEL_FAULT	0x1000
-#define SW_CAN_FAULT	0x2000
-#define SW_BRAKE_FAULT	0x4000
-#define SW_REV_FAULT	0x8000
+#define SW1_MODE_R		0x0001
+#define SW1_MODE_N		0x0002
+#define SW1_MODE_B		0x0004
+#define SW1_MODE_D		0x0008
+#define SW1_IGN_ACC		0x0010
+#define SW1_IGN_ON		0x0020
+#define SW1_IGN_START	0x0040
+#define SW1_BRAKE		0x0080
+#define SW1_FUEL		0x0100
+#define SW1_SPARE1		0x0200
+#define SW1_SPARE2		0x0400
+#define SW1_SPARE3		0x0800
+#define SW1_ACCEL_FAULT	0x1000
+#define SW1_CAN_FAULT	0x2000
+#define SW1_BRAKE_FAULT	0x4000
+#define SW1_REV_FAULT	0x8000
+
+// Driver control switch positions for next 16 bits.
+#define SW2_REGEN_PB		0x0001
+#define SW2_CRUISE   	    0x0002
+#define SW2_HORN			0x0004
+#define SW2_THROTTLE_SEL    0x0008
+#define SW2_CRUISE_REMOTE   0x0010  // set when both SW1_MODE_D and SW2_CRUISE Active 
+#define SW2_FLASH           0x0100  // indicates state of the indicator flashing
+#define SW2_LEFT_IND		0x0200
+#define SW2_RIGHT_IND	    0x0400
+#define SW2_HAZ_ON		    0x0800
+
+
+#define SW2_IND_ON (SW2_LEFT_IND | SW2_RIGHT_IND | SW2_HAZ_ON)
+
 
 // Low / high egear switch CAN base address and packet offsets
 #define EG_CAN_BASE		0x580

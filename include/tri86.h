@@ -6,11 +6,11 @@
 
 // Pin Definitions
 // Port 1
-#define IN_FUEL				0x01
+#define IN_HORN				0x01
 #define IN_BRAKEn			0x02
-#define IN_IGN_STARTn		0x04
-#define IN_IGN_ONn			0x08
-#define IN_IGN_ACCn			0x10
+#define IN_THROTTLE_SELn  	0x04
+#define IN_HAZ_ONn			0x08
+#define IN_REGEN_PBn		0x10
 #define BRAKE_OUT			0x20
 #define REVERSE_OUT			0x40
 #define CAN_PWR_OUT			0x80
@@ -20,9 +20,9 @@
 #define IN_GEAR_1			0x01
 #define IN_GEAR_2			0x02
 #define IN_GEAR_3			0x04
-#define IN_GEAR_4			0x08
-#define IN_GEAR_5			0x10
-#define IN_GEAR_6			0x20
+#define IN_ENC_A			0x08      // encoder inputs A,B for digital throttle pot
+#define IN_ENC_B			0x10
+#define IN_CRUISE			0x20
 #define EXPANSION_IRQ		0x40
 #define CAN_INTn			0x80
 #define P2_UNUSED			0x00
@@ -50,7 +50,7 @@
 // Port 5
 #define LED_FAULT_3			0x01
 #define LED_FAULT_2			0x02
-#define LED_FAULT_1			0x04
+#define LED_HAZ 			0x04
 #define LED_GEAR_BL			0x08
 #define LED_GEAR_4			0x10
 #define LED_GEAR_3			0x20
@@ -58,7 +58,7 @@
 #define LED_GEAR_1			0x80
 #define P5_UNUSED			0x00
 
-#define LED_GEAR_ALL		(LED_GEAR_4 | LED_GEAR_3 | LED_GEAR_2 | LED_GEAR_1)
+#define LED_GEAR_ALL		(LED_GEAR_3 | LED_GEAR_2 | LED_GEAR_1)
 
 // Port 6
 #define ANLG_V_ENABLE		0x01
@@ -77,7 +77,7 @@
 // #define CUTOUT_ON_BRAKE		// Cut throttle on brake pedal active (solarcar preference to avoid dragging brakes)
 
 // Device serial number
-#define DEVICE_ID		0x1002
+#define DEVICE_SERIAL		8070
 
 // Constant Definitions
 #define	TRUE				1
@@ -108,7 +108,8 @@
 #define INPUT_CLOCK			16000000			// Hz
 #define TICK_RATE			100					// Hz
 #define COMMS_SPEED			10					// Number of ticks per event: 10 ticks = 100ms = 10 Hz
-#define CHARGE_FLASH_SPEED	20					// LED flash rate in charge mode: 20 ticks = 200ms = 5 Hz
+#define FLASH_SPEED			20					// LED flash rate in charge mode: 20 ticks = 200ms = 5 Hz
+#define FLASH_PULSE			5
 #define ACTIVITY_SPEED		2					// LED flash period for CAN activity: 2 ticks = 20ms
 
 // Event definitions
@@ -135,6 +136,12 @@
 #define REGEN_THRESHOLD		-5					// Brake lights come on above this motor current, A
 #define CHANGE_VEL_LTOH		1800				// Shift up (if using egear) above this speed, rpm
 #define CHANGE_VEL_HTOL		1600				// Shift down (if using egear) below this speed, rpm
+
+
+// Analogue B input limits
+#define ADC_LEVEL_1  1350
+#define ADC_LEVEL_2  2700
+
 
 // Public variables
 volatile unsigned int events;

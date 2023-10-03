@@ -24,7 +24,7 @@
  */
 
 // Public function prototypes
-extern void process_pedal( unsigned int a, unsigned int b, unsigned int c, unsigned char request_regen );
+extern void process_pedal( unsigned int throttle, unsigned int regen_slider, unsigned char request_regen, unsigned char encoder_in_use );
 
 // Public variables
 typedef struct _command_variables {
@@ -57,18 +57,26 @@ extern command_variables command;
 #define HALL_PEDAL
 
 #define ADC_MAX					4096
-#ifdef HALL_PEDAL
-	#define PEDAL_TRAVEL_MIN	245					// Hall pedal type sensor 0.3 - 3.9V travel
-	#define PEDAL_TRAVEL_MAX	3195
-#else
-	#define PEDAL_TRAVEL_MIN	200
-	#define PEDAL_TRAVEL_MAX	(ADC_MAX - 200)
-#endif
+
+//03D0  0617  976  1559
+#define PEDAL_TRAVEL_MIN	1150
+#define PEDAL_TRAVEL_MAX	1500
 
 #define PEDAL_TRAVEL			(PEDAL_TRAVEL_MAX - PEDAL_TRAVEL_MIN)
 #define PEDAL_ERROR_MIN			0
 #define PEDAL_ERROR_MAX			(ADC_MAX - 0)
-#define PEDAL_MISMATCH_MAX		100
+
+
+
+#define ENCODER_TRAVEL_MIN	5
+#define ENCODER_TRAVEL_MAX	(ADC_MAX - 5)
+
+#define ENCODER_TRAVEL			(ENCODER_TRAVEL_MAX - ENCODER_TRAVEL_MIN)
+#define ENCODER_ERROR_MIN			0
+#define ENCODER_ERROR_MAX			(ADC_MAX - 0)
+
+
+
 
 // Analog input for linear slider type pot for regenerative strenght control
 // Channel C = 0.00 to 5.00 Volts = 0 to 4096 counts
